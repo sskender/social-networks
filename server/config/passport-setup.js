@@ -3,7 +3,7 @@ const Strategy = require('passport-twitter').Strategy
 
 const userService = require('../services/user.service.js')
 
-module.exports = (config) => {
+const setup = (config) => {
   // Configure the Twitter strategy for use by Passport.
   //
   // OAuth 1.0-based strategies require a `verify` function which receives the
@@ -34,3 +34,5 @@ module.exports = (config) => {
     cb(null, obj)
   })
 }
+
+module.exports = setup
