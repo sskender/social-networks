@@ -2,11 +2,31 @@ const httpStatus = require('http-status')
 
 const twitterCallback = async (req, res, next) => {
   try {
-    // TODO make nicer
+    const userData = {
+      provider: req.user.provider,
+      id: req.user.id,
+      username: req.user.username,
+      displayName: req.user.displayName
+    }
+
     return res.status(httpStatus.OK).json({
       success: true,
       status: httpStatus.OK,
-      data: req.user
+      data: userData
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+const logout = async (req, res, next) => {
+  try {
+    req.logout()
+
+    return res.status(httpStatus.OK).json({
+      success: true,
+      status: httpStatus.OK,
+      data: null
     })
   } catch (err) {
     return next(err)
@@ -14,5 +34,6 @@ const twitterCallback = async (req, res, next) => {
 }
 
 module.exports = {
-  twitterCallback
+  twitterCallback,
+  logout
 }

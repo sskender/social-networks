@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/twitter', passport.authenticate('twitter'))
 router.get('/twitter/callback', passport.authenticate('twitter'), authController.twitterCallback)
-// TODO logout
-// TODO read passport docs
+
+router.get('/logout', authController.logout)
 
 module.exports = router
