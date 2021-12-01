@@ -6,7 +6,7 @@ const twitterCallback = async (req, res, next) => {
       provider: req.user.provider,
       id: req.user.id,
       username: req.user.username,
-      displayName: req.user.displayName
+      display_name: req.user.display_name
     }
 
     return res.status(httpStatus.OK).json({
