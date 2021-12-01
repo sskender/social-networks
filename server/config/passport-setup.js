@@ -1,6 +1,8 @@
 const passport = require('passport')
 const Strategy = require('passport-twitter').Strategy
 
+const userService = require('../services/user.service.js')
+
 module.exports = (config) => {
   // Configure the Twitter strategy for use by Passport.
   //
@@ -17,8 +19,9 @@ module.exports = (config) => {
         callbackURL: config.twitter.callbackURL,
         proxy: false
       },
-      (token, tokenSecret, profile, cb) => {
-        return cb(null, profile)
+      async (token, tokenSecret, profile, cb) => {
+        const user = await userService.getUserFromProfile(profile)
+        return cb(null, user)
       }
     )
   )
