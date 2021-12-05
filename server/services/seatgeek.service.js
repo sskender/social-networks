@@ -13,7 +13,7 @@ const BASE_URL = 'https://api.seatgeek.com/2/events'
 const CLIENT_ID = process.env.SEATGEEK_CLIENT_ID
 const CLIENT_SECRET = process.env.SEATGEEK_CLIENT_SECRET
 
-const getListOfEventsByGeolocation = async (lat, lon, range) => {
+const getListOfEventsByGeolocation = async ({ lat, lon, range }) => {
   const EXPECTED_STATUS_CODE = 200
   const PER_PAGE = 50
 
