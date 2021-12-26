@@ -47,6 +47,12 @@ const artistSchema = new Schema({
   },
   strArtistThumb: {
     type: String
+  },
+  intListeners: {
+    type: Number
+  },
+  intPlaycount: {
+    type: Number
   }
 })
 
