@@ -1,11 +1,11 @@
 const express = require('express')
 
 const authRoute = require('./auth.route')
-const contentRoute = require('./content.route')
+const artistRoute = require('./artist.route')
 
 const router = express.Router()
 
 router.use('/auth', authRoute)
-router.use('/content', contentRoute)
+router.use('/artist', artistRoute)
 
 module.exports = router

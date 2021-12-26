@@ -25,7 +25,13 @@ npm run lint:fix
 ## API
 
 - GET artists:
-`http://localhost:3000/api/v1/content/artist`
+`http://localhost:3000/api/v1/artist`
 
-- GET artist details:
-`http://localhost:3000/api/v1/content/artist/150642`
+- GET artist details by id:
+`http://localhost:3000/api/v1/artist/150642`
+
+- GET similar artists details:
+`http://localhost:3000/api/v1/artist/111239/similar`
+
+- GET globally recommended artists (geo):
+`http://localhost:3000/api/v1/artist/top`
