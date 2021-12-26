@@ -12,7 +12,42 @@ const artistSchema = new Schema({
     type: String,
     required: true
   },
-  data: { type: Object }
+  idLabel: {
+    type: Number
+  },
+  intFormedYear: {
+    type: Number
+  },
+  intBornYear: {
+    type: Number
+  },
+  strStyle: {
+    type: String
+  },
+  strGenre: {
+    type: String
+  },
+  strMood: {
+    type: String
+  },
+  strWebsite: {
+    type: String
+  },
+  strFacebook: {
+    type: String
+  },
+  strTwitter: {
+    type: String
+  },
+  strBiographyEN: {
+    type: String
+  },
+  strCountry: {
+    type: String
+  },
+  strArtistThumb: {
+    type: String
+  }
 })
 
 const Artist = mongoose.model('Artist', artistSchema)
