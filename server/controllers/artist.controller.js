@@ -32,9 +32,7 @@ const getArtistDetails = async (req, res, next) => {
 
 const getTopArtistsGeo = async (req, res, next) => {
   try {
-    const topArtists = await artistService.fetchTopArtistsGeo()
-    const strArtists = topArtists.map(artist => artist.strArtist)
-    const result = await artistService.getArtistsFromArray(strArtists)
+    const result = await artistService.getTopArtistsGeo()
 
     return res.status(httpStatus.OK).json({
       success: true,
@@ -49,9 +47,21 @@ const getTopArtistsGeo = async (req, res, next) => {
 const getSimilarArtists = async (req, res, next) => {
   try {
     const { idArtist } = req.params
-    const artist = await artistService.getArtistDetails(idArtist)
-    const similarStrArtists = await artistService.fetchSimilarArtists(artist.strArtist)
-    const result = await artistService.getArtistsFromArray(similarStrArtists)
+    const result = await artistService.getSimilarArtists(idArtist)
+
+    return res.status(httpStatus.OK).json({
+      success: true,
+      status: httpStatus.OK,
+      data: result
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+const getAllGenres = async (req, res, next) => {
+  try {
+    const result = await artistService.getStrGenres()
 
     return res.status(httpStatus.OK).json({
       success: true,
@@ -83,5 +93,6 @@ module.exports = {
   getArtistDetails,
   getTopArtistsGeo,
   getSimilarArtists,
+  getAllGenres,
   getArtistsByGenre
 }

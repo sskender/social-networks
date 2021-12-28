@@ -6,26 +6,6 @@ const Artist = require('../models/artist')
 
 dotenv.config({ path: path.join(__dirname, './../.env') })
 
-const getArtistByStrArtist = async (strArtist) => {
-  return Artist.find({ strArtist: { $regex: '.*' + strArtist + '.*', $options: 'i' } }).exec()
-}
-
-const getAllArtists = async () => {
-  return Artist.find({}).exec()
-}
-
-const getArtistDetails = async (idArtist) => {
-  return Artist.findOne({ idArtist: idArtist }).exec()
-}
-
-const getArtistsFromArray = async (strArtists) => {
-  return Artist.find({ strArtist: { $in: strArtists } }).exec()
-}
-
-const getArtistByStrGenre = async (strGenre) => {
-  return Artist.find({ strGenre: { $regex: '.*' + strGenre + '.*', $options: 'i' } }).exec()
-}
-
 /**
  * lastfm.com
  */
@@ -217,17 +197,49 @@ const storeNewArtist = async (artistName) => {
   }
 }
 
+/**
+ * internal
+ */
+
+const getAllArtists = async () => {
+  return Artist.find({}).exec()
+}
+
+const getArtistDetails = async (idArtist) => {
+  return Artist.findOne({ idArtist: idArtist }).exec()
+}
+
+const getArtistByStrArtist = async (strArtist) => {
+  return Artist.find({ strArtist: { $regex: '.*' + strArtist + '.*', $options: 'i' } }).exec()
+}
+
+const getSimilarArtists = async (idArtist) => {
+  const artist = await getArtistDetails(idArtist)
+  const similarStrArtists = await fetchSimilarArtists(artist.strArtist)
+  return Artist.find({ strArtist: { $in: similarStrArtists } }).sort({ intListeners: -1 }).exec()
+}
+
+const getStrGenres = async () => {
+  return Artist.find({}).distinct('strGenre', { strGenre: { $nin: ['', null] } }).exec()
+}
+
+const getArtistByStrGenre = async (strGenre) => {
+  return Artist.find({ strGenre: { $regex: '.*' + strGenre + '.*', $options: 'i' } }).exec()
+}
+
+const getTopArtistsGeo = async () => {
+  const topArtists = await fetchTopArtistsGeo()
+  const strArtists = topArtists.map(artist => artist.strArtist)
+  return Artist.find({ strArtist: { $in: strArtists } }).sort({ intListeners: -1 }).exec()
+}
+
 module.exports = {
-  getArtistByStrArtist,
   getAllArtists,
   getArtistDetails,
-  getArtistsFromArray,
+  getArtistByStrArtist,
+  getSimilarArtists,
+  getStrGenres,
   getArtistByStrGenre,
-  storeNewArtist,
-  fetchArtistInfo,
-  fetchSimilarArtists,
-  fetchArtistTopAlbums,
-  fetchArtistTopTracks,
-  fetchTopArtistsGeo,
-  fetchTopTracksGeo
+  getTopArtistsGeo,
+  storeNewArtist
 }

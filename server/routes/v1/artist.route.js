@@ -7,6 +7,7 @@ router.route('/').get(artistController.getAllArtists)
 
 router.route('/top').get(artistController.getTopArtistsGeo)
 
+router.route('/genre').get(artistController.getAllGenres)
 router.route('/genre/:strGenre').get(artistController.getArtistsByGenre)
 
 router.route('/:idArtist').get(artistController.getArtistDetails)
