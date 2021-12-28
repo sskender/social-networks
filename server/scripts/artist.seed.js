@@ -1,27 +1,22 @@
 const mongoose = require('mongoose')
-const config = require('../config')
 
-const theaudiodbService = require('../services/theaudiodb.service')
-const Artist = require('../models/artist')
+const config = require('../config')
+const artistService = require('../services/artist.service')
+
+const artistsList = []
+
+const timer = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 mongoose
   .connect(config.mongoose.connectionString, config.mongoose.options)
-  .then(() => {
+  .then(async () => {
     console.log('Connected to MongoDB')
 
-    const artistList = ['Coldplay', 'Michael Buble', 'Aerosmith', 'Doja Cat']
-
-    for (const artist of artistList) {
-      theaudiodbService.getArtistDetails(artist).then(artistDetailsList => {
-        for (const artistDetails of artistDetailsList) {
-          new Artist({
-            idArtist: artistDetails.idArtist,
-            strArtist: artistDetails.strArtist,
-            data: artistDetails
-          }).save().then(result => {
-            console.log(result)
-          })
-        }
-      })
+    for (const artist of artistsList) {
+      await artistService.storeNewArtist(artist)
+      console.log(`Saved: ${artist}`)
+      await timer(2000)
     }
   })
