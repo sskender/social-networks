@@ -201,6 +201,10 @@ const storeNewArtist = async (artistName) => {
  * internal
  */
 
+const getArtistByIdArtist = async (idArtist) => {
+  return Artist.findOne({ idArtist: idArtist }).exec()
+}
+
 const getAllArtists = async () => {
   return Artist.find({}).exec()
 }
@@ -234,6 +238,7 @@ const getTopArtistsGeo = async () => {
 }
 
 module.exports = {
+  getArtistByIdArtist,
   getAllArtists,
   getArtistDetails,
   getArtistByStrArtist,

@@ -1,4 +1,5 @@
 const httpStatus = require('http-status')
+
 const artistService = require('../services/artist.service')
 
 const getAllArtists = async (req, res, next) => {
