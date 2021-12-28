@@ -41,3 +41,10 @@ npm run lint:fix
 
 - GET top artists (geo):
 `http://localhost:3000/api/v1/artist/top`
+
+- GET user's favorite artists
+`http://localhost:3000/api/v1/user/favorite`
+
+- POST / DELETE user's favorite artist
+`http://localhost:3000/api/v1/user/favorite`
+BODY: `{ "idArtist" : "150642" }`
