@@ -18,6 +18,8 @@ passportSetup(config)
 
 mongoose.connect(config.mongoose.connectionString, config.mongoose.options).then(() => {
   console.log('Connected to MongoDB')
+}).catch((err) => {
+  console.log(`Could not connect to database: ${err}`)
 })
 
 const app = express()

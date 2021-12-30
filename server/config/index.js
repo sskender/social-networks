@@ -16,7 +16,8 @@ module.exports = {
   sessionOptions: {
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxage: 24 * 60 * 60 * 1000 }
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
