@@ -37,7 +37,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/api/v1', routes)
+app.use(routes)
 app.use(clientErrorHandler)
 app.use(errorHandler)
 

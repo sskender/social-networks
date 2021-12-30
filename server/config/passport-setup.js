@@ -1,5 +1,6 @@
 const passport = require('passport')
-const Strategy = require('passport-twitter').Strategy
+const TwitterStrategy = require('passport-twitter').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
 
 const userService = require('../services/user.service.js')
 
@@ -12,7 +13,7 @@ const setup = (config) => {
   // with a user object, which will be set at `req.user` in route handlers after
   // authentication.
   passport.use(
-    new Strategy(
+    new TwitterStrategy(
       {
         consumerKey: config.twitter.consumerKey,
         consumerSecret: config.twitter.consumerSecret,
@@ -20,11 +21,33 @@ const setup = (config) => {
         proxy: false
       },
       async (token, tokenSecret, profile, cb) => {
-        const user = await userService.getUserFromProfile(profile)
-        return cb(null, user)
+        try {
+          const user = await userService.getUserFromPassportProfile(profile)
+          return cb(null, user)
+        } catch (err) {
+          return cb(err, null)
+        }
       }
     )
   )
+
+  passport.use(
+    new FacebookStrategy(
+      {
+        clientID: config.facebook.appId,
+        clientSecret: config.facebook.appSecret,
+        callbackURL: config.facebook.callbackURL,
+        profileFields: ['displayName']
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        try {
+          const user = await userService.getUserFromPassportProfile(profile)
+          return cb(null, user)
+        } catch (err) {
+          return cb(err, null)
+        }
+      }
+    ))
 
   passport.serializeUser((user, cb) => {
     cb(null, user)

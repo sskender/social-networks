@@ -4,25 +4,20 @@ const { Schema } = mongoose
 const userSchema = new Schema({
   id: {
     type: Number,
-    required: true,
-    unique: true,
+    default: '',
     index: true
-  },
-  username: {
-    type: String,
-    required: true
   },
   display_name: {
     type: String,
-    required: false,
     default: ''
   },
   provider: {
     type: String,
-    required: false,
-    default: 'local'
+    default: ''
   }
-})
+},
+{ timestamps: true }
+)
 
 const User = mongoose.model('User', userSchema)
 
