@@ -21,8 +21,7 @@ const getFavoriteArtists = async (userId) => {
 const addFavoriteArtist = async (userId, artistId) => {
   const favorite = await Favorite.findOne({ user_id: userId, artist_id: artistId }).exec()
   if (favorite === null) {
-    const newFavorite = new Favorite({ user_id: userId, artist_id: artistId })
-    return newFavorite.save()
+    return new Favorite({ user_id: userId, artist_id: artistId }).save()
   }
 }
 
