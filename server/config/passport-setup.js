@@ -37,7 +37,7 @@ const setup = (config) => {
         clientID: config.facebook.appId,
         clientSecret: config.facebook.appSecret,
         callbackURL: config.facebook.callbackURL,
-        profileFields: ['displayName']
+        profileFields: ['displayName', 'email']
       },
       async (accessToken, refreshToken, profile, cb) => {
         try {

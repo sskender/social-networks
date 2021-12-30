@@ -7,7 +7,8 @@ const getUserFromPassportProfile = async (profile) => {
     const newUser = await new User({
       id: profile.id,
       provider: profile.provider,
-      display_name: profile.displayName
+      display_name: profile.displayName,
+      email: profile.emails[0].value
     }).save()
     return newUser
   }

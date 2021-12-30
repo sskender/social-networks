@@ -7,6 +7,10 @@ const userSchema = new Schema({
     default: '',
     index: true
   },
+  email: {
+    type: String,
+    default: ''
+  },
   display_name: {
     type: String,
     default: ''
