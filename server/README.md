@@ -49,6 +49,15 @@ npm run lint:fix
 `http://localhost:3000/user/favorite`
 BODY: `{ "idArtist" : "150642" }`
 
+- GET liked artists from facebook
+`http://localhost:3000/user/liked`
+
+- GET recommended artists from favorites
+`http://localhost:3000/user/recommend/local`
+
+- GET recommended artists from facebook
+`http://localhost:3000/user/recommend/external`
+
 - FACEBOOK LOGIN REDIRECT:
 `http://localhost:3000/auth/facebook`
 

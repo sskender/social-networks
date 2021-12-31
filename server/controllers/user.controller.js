@@ -6,8 +6,7 @@ const artistService = require('../services/artist.service')
 const getFavoriteArtists = async (req, res, next) => {
   try {
     const userId = req.user._id
-    const favorites = await userService.getFavoriteArtists(userId)
-    const result = favorites.map(artist => artist.artist_id)
+    const result = await userService.getFavoriteArtists(userId)
 
     return res.status(httpStatus.OK).json({
       success: true,
@@ -43,8 +42,56 @@ const removeFavoriteArtist = async (req, res, next) => {
   }
 }
 
+const getLikedArtists = async (req, res, next) => {
+  try {
+    const user = req.user
+    const result = await userService.getLikedArtists(user)
+
+    return res.status(httpStatus.OK).json({
+      success: true,
+      status: httpStatus.OK,
+      data: result
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+const getRecommendedArtistsLocal = async (req, res, next) => {
+  try {
+    const user = req.user
+    const result = await userService.getRecommendedArtistsLocal(user)
+
+    return res.status(httpStatus.OK).json({
+      success: true,
+      status: httpStatus.OK,
+      data: result
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+const getRecommendedArtistsExternal = async (req, res, next) => {
+  try {
+    const user = req.user
+    const result = await userService.getRecommendedArtistsExternal(user)
+
+    return res.status(httpStatus.OK).json({
+      success: true,
+      status: httpStatus.OK,
+      data: result
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
 module.exports = {
   getFavoriteArtists,
   addFavoriteArtist,
-  removeFavoriteArtist
+  removeFavoriteArtist,
+  getLikedArtists,
+  getRecommendedArtistsLocal,
+  getRecommendedArtistsExternal
 }

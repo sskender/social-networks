@@ -41,7 +41,7 @@ const fetchSimilarArtists = async (strArtist) => {
     format: 'json',
     method: 'artist.getsimilar',
     artist: strArtist,
-    limit: 250
+    limit: 50
   }
 
   try {
