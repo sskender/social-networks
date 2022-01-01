@@ -28,6 +28,10 @@ const getLikedArtists = async (user) => {
   return likedArtists
 }
 
+/**
+ * internal
+ */
+
 const getUserFromPassportProfile = async (profile) => {
   const currentUser = await User.findOne({ id: profile.id })
   if (!currentUser) {

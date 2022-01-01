@@ -119,7 +119,7 @@ const fetchTopArtistsGeo = async () => {
     format: 'json',
     method: 'geo.gettopartists',
     country: 'croatia',
-    limit: 250
+    limit: 50
   }
 
   try {
@@ -198,6 +198,39 @@ const storeNewArtist = async (artistName) => {
 }
 
 /**
+ * rapidapi.com shazam
+ */
+
+const fetchTopArtistsShazam = async () => {
+  const BASE_URL = 'https://shazam.p.rapidapi.com/charts/track'
+  const headers = {
+    'x-rapidapi-host': process.env.RAPID_API_HOST,
+    'x-rapidapi-key': process.env.RAPID_API_KEY
+  }
+
+  try {
+    const response = await axios.get(BASE_URL, { headers: headers })
+    const tracksList = response.data.tracks
+
+    const allArtists = new Set()
+    for (const track of tracksList) {
+      const rawArtists = track.artists?.map(artist => artist?.alias?.replace(/-/g, ' '))
+      if (rawArtists) {
+        for (const rawArtist of rawArtists) {
+          if (rawArtist) {
+            allArtists.add(rawArtist)
+          }
+        }
+      }
+    }
+
+    return [...allArtists]
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+/**
  * internal
  */
 
@@ -234,7 +267,10 @@ const getArtistByStrGenre = async (strGenre) => {
 const getTopArtistsGeo = async () => {
   const topArtists = await fetchTopArtistsGeo()
   const strArtists = topArtists.map(artist => artist.strArtist)
-  return Artist.find({ strArtist: { $in: strArtists } }).sort({ intListeners: -1 }).exec()
+  const topShazamArtists = await fetchTopArtistsShazam()
+  strArtists.push(...topShazamArtists)
+  const rStrArtists = strArtists.map(strArtist => new RegExp(strArtist, 'i'))
+  return Artist.find({ strArtist: { $in: rStrArtists } }).sort({ intListeners: -1 }).exec()
 }
 
 module.exports = {
