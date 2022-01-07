@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
       <h1>{{ artist.strArtist }}</h1>
   </div>
 </template>
@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style>
-
+  .container {
+    margin: 15vh 7vh;
+  }
 </style>
