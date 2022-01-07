@@ -1,6 +1,8 @@
 <template>
 <div class="container">
-    <h1>All genres</h1>
+    <div class="header">
+        <h1>All Genres</h1>
+    </div>
     <div class="genres">
         <p v-for="(genre, index) in genres" :key="index">
             {{ genre }}
@@ -20,13 +22,21 @@ export default {
 </script>
 
 <style>
+    .header {
+        background: #1c744cee;
+        height: 10vh;
+        justify-content: center;
+        padding: 0 5vh;
+    }
+    .header h1 {
+        color: white;
+        line-height: 10vh;
+    }
     .container {
-        margin: 15vh 7vh;
+        margin: 12vh 0;
     }
     .container h1 {
-        margin-bottom: 7vh;
          font-family: 'Questrial', sans-serif;
-         color: #1c744c;
     }
     .genres {
         column-count: 6;

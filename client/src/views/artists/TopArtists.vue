@@ -1,6 +1,8 @@
 <template>
 <div class="container">
-    <h1>Top Artists</h1>
+    <div class="header">
+        <h1>Top Artists</h1>
+    </div>
     <div class="topArtists">
         <p v-for="(artist, index) in sortedJson" :key="index">
             {{ artist.strArtist }}
@@ -26,13 +28,21 @@ export default {
 </script>
 
 <style>
+    .header {
+        background: #1c744cee;
+        height: 10vh;
+        justify-content: center;
+        padding: 0 5vh;
+    }
+    .header h1 {
+        color: white;
+        line-height: 10vh;
+    }
     .container {
-        margin: 15vh 7vh;
+        margin: 12vh 0;
     }
     .container h1 {
-        margin-bottom: 7vh;
          font-family: 'Questrial', sans-serif;
-         color: #1c744c;
     }
     .topArtists {
         column-count: 6;
