@@ -40,7 +40,7 @@
 <script>
 import axios from 'axios';
 
-const config = {
+/*const config = {
     headers: {  Authorization: `bearer s%3ARhGn7I5uksizD9rqFitYgSGjlMvwc-NZ.iiE25xTPUIccUgHIgyoDLYdnuXpwT0MT4WGHkeWw5uo`,  
                 Accept: "application/json", "Content-Type": "application/json", "Access-Control-Allow-Credentials": true ,
                 withCredentials: true
@@ -49,6 +49,7 @@ const config = {
 const bodyParameters = {
    key: "value"
 };
+*/
 export default {
     data() {
         return {
@@ -66,12 +67,12 @@ export default {
                             "Content-Type": "application/json",
                             "Access-Control-Allow-Credentials": true }}, 
         {credentials: 'include'}).then(response => console.log(response.data));*/
+
         axios.get(
         'http://localhost:3000/artist',
         {
-            credentials: 'include'
-        },
-        config,
+            withCredentials: true
+        }
         ).then(response => console.log(response.data))
     }, 
 
