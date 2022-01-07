@@ -7,9 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@ocrv/vue-tailwind-pagination": "^0.0.4",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "json-server": "^0.17.0",
+    "jw-vue-pagination": "^1.0.3",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
