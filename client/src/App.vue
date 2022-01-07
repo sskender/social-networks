@@ -25,6 +25,24 @@ html {
   overflow-y: scroll;
 }
 
+::-webkit-scrollbar-track {
+  background: #1c744c; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c744c; 
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: white;
+  background: #1c744c;
+}
+
+::selection {
+  color: white;
+  background: #1c744c;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

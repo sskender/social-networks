@@ -29,6 +29,7 @@
   <div v-else>
     <p>Loading artists...</p>
   </div>-->
+  
   <div class="floating">
       <router-link :to="{name: 'AllGenres'}">All genres</router-link> | 
       <router-link :to="{name: 'TopArtists'}">Top artists</router-link>
@@ -37,7 +38,17 @@
 </template>
 
 <script>
-const axios = require('axios');
+/*import axios from 'axios';
+
+const config = {
+    headers: {  Authorization: `bearer s%3ARhGn7I5uksizD9rqFitYgSGjlMvwc-NZ.iiE25xTPUIccUgHIgyoDLYdnuXpwT0MT4WGHkeWw5uo`,  
+                Accept: "application/json", "Content-Type": "application/json", "Access-Control-Allow-Credentials": true ,
+                withCredentials: true
+            },
+};
+const bodyParameters = {
+   key: "value"
+};*/
 export default {
     data() {
         return {
@@ -48,13 +59,21 @@ export default {
             ],
         }
     },
-    headers: {'Access-Control-Allow-Credentials':true },
-    mounted() {
-        axios.get('http://localhost:3000/artist').then(response => console.log(response.data));
-    },
-    
+        /*axios.get('http://localhost:3000/auth/facebook', 
+        bodyParameters, 
+        { headers: { Accept: "application/json",
+                            "Content-Type": "application/json",
+                            "Access-Control-Allow-Credentials": true }}, 
+        {credentials: 'include'}).then(response => console.log(response.data));*/
+        /*axios.get(
+        'http://localhost:3000/auth/facebook',
+        {
+            credentials: 'include'
+        },
+        config,
+        ).then(response => console.log(response.data))*/
+    }
 
-}
 </script>
 
 <style>
