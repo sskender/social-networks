@@ -77,10 +77,8 @@ export default {
   },
   methods: {
       like(artistId) {
-          const data = {
-            body: {
-                idArtist : artistId,
-            }
+        const data = {
+            idArtist : artistId
         };
           axios.post(
             'http://localhost:3000/user/favorite',
