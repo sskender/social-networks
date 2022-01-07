@@ -19,6 +19,13 @@ module.exports = {
     saveUninitialized: true,
     cookie: { maxage: 24 * 60 * 60 * 1000 }
   },
+  corsOptions: {
+    origin: [
+      'http://localhost:8080'
+    ],
+    credentials: true,
+    exposedHeaders: ['set-cookie']
+  },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,

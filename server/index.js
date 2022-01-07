@@ -28,7 +28,7 @@ app.use(morgan('common'))
 app.use(helmet({
   contentSecurityPolicy: false
 }))
-app.use(cors())
+app.use(cors(config.corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(xss())
