@@ -3,9 +3,13 @@
     <div class="containerr">
     <div class="firstSection">
       <div class="insideFirstSection">
-        <router-link :to="{name: 'SimilarArtists', params: { id: artist.idArtist }}" class="similarArtists2">
-          Similar artists
-        </router-link>
+        <div class="detailsFavorite">
+          <router-link :to="{name: 'SimilarArtists', params: { id: artist.idArtist }}" class="similarArtists2">
+            Similar artists
+          </router-link>
+          <img style="height:4vh" :id="'myImg'+ index" v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist)" @click="toggleLike(artist.idArtist, index)" :src="fill" alt="fill-heart">  
+          <img :id="'myImg'+ index" v-else :src="stroke" @click="toggleLike(artist.idArtist, index)" alt="stroke-heart">
+        </div>
         <h1>{{ artist.strArtist }}</h1>
         <div>
           <p v-if="artist.intFormedYear"><b>Active since: </b>  {{ artist.intFormedYear }}</p>
@@ -46,7 +50,10 @@ export default {
     props: ['id'],
     data() {
     return {
-      artist: null
+      artist: null,
+      favoriteArtists: [],
+      fill: "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png",
+      stroke: "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png"
       }
   },
   mounted() {
@@ -56,16 +63,37 @@ export default {
             withCredentials: true
         }
         ).then(response => this.artist = response.data.data)
+        axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data)
   },
   methods: {
     gotoPage(link) {
       window.open("http://" + link);
-    }
+    },
+    toggleLike(artistId, index) {
+        const data = {
+            idArtist : artistId
+        };
+          axios.post(
+            'http://localhost:3000/user/favorite',
+            data, {withCredentials: true},
+            ).then(response => console.log(response));
+            console.log(document.getElementById("myImg" + index).src)
+            if(document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png") {
+                document.getElementById("myImg" + index).src = this.fill
+            } else if(document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png") {
+                document.getElementById("myImg" + index).src = this.stroke
+            }
+      },
   }
 }
 </script>
 
 <style>
+  .detailsFavorite {
+    display: flex;
+    gap: 3vh;
+    align-items: center;
+  }
   .containerr {
     width: 70%;
     margin: 15vh auto 0 auto;
