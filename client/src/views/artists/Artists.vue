@@ -11,11 +11,11 @@
       </div>
     
     <div v-if="filteredList.length">
-        <div v-for="artist in filteredList" :key="artist.idArtist" class="artists">
+        <div v-for="(artist, index) in filteredList" :key="artist.idArtist" class="artists">
         
             <ul>
-                <img v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist )" src="../../assets/Heart_Icon_Fill.svg" @click="unlike(artist.idArtist)" alt="fill-heart">  
-                <img v-else src="../../assets/Heart_Icon_Stroke.svg" @click="like(artist.idArtist)" alt="stroke-heart">
+                <img :id="'myImg'+ index" v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist)" @click="toggleLike(artist.idArtist, index)" :src="fill" alt="fill-heart">  
+                <img :id="'myImg'+ index" v-else :src="stroke" @click="toggleLike(artist.idArtist, index)" alt="stroke-heart">
                         <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}" class="nd">
                             <div>
                                 <h2>{{ artist.strArtist }}</h2>
@@ -63,7 +63,9 @@ export default {
             search: '',
             artists: [ ],
             favoriteArtists: [],
-            error: false
+            error: false,
+            fill: "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png",
+            stroke: "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png"
         }
     },
     mounted() {
@@ -90,10 +92,12 @@ export default {
           this.artists.length < 1 ? this.error=true : this.error=false
           setTimeout(myFunction, 1000);
       },
-      unlike(artistId) {
+      /*unlike(artistId, index) {
           axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
-      },
-      like(artistId) {
+          document.getElementById("myImg" + index).src = this.stroke
+
+      },*/
+      toggleLike(artistId, index) {
         const data = {
             idArtist : artistId
         };
@@ -101,6 +105,12 @@ export default {
             'http://localhost:3000/user/favorite',
             data, {withCredentials: true},
             ).then(response => console.log(response));
+            console.log(document.getElementById("myImg" + index).src)
+            if(document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png") {
+                document.getElementById("myImg" + index).src = this.fill
+            } else if(document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png") {
+                document.getElementById("myImg" + index).src = this.stroke
+            }
       },
 
 
