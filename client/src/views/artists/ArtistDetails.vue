@@ -25,10 +25,10 @@
     </div>
   </div>
   <div class="fourthSection">
-    <div v-if="artist.strFacebook | artist.strTwitter | artist.strWebsite">
-        <a href=""> Facebook page </a> |
-        <a href=""> Twitter page </a>  | 
-        <a href=""> Website </a>
+    <div v-if="artist.strFacebook.length>0 || artist.strTwitter.length>0 || artist.strWebsite.length>0">
+        <a @click="gotoPage(artist.strFacebook)"> Facebook page </a> |
+        <a @click="gotoPage(artist.strTwitter)"> Twitter page </a>  | 
+        <a @click="gotoPage(artist.strWebsite)"> Website </a>
     </div>
     <div v-else>
         <p>There is no social media sites!</p>
@@ -56,6 +56,11 @@ export default {
             withCredentials: true
         }
         ).then(response => this.artist = response.data.data)
+  },
+  methods: {
+    gotoPage(link) {
+      window.open("http://" + link);
+    }
   }
 }
 </script>

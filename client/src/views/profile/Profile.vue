@@ -1,6 +1,5 @@
 <template>
     <div v-if="error == false" class="profileContainer">
-        <div v-if="favorites.length">
             <div class="header">
                 <h1>All Favorite artists</h1>
             </div>
@@ -61,10 +60,6 @@
                 </div>
             </div>
             <div v-else class="if2"> <h2>You don't have facebook recommended artists!</h2></div>
-        </div>
-        <div v-else class="if">
-            <h2>You don't have favorite artists!</h2>
-        </div>
     </div>
     <div v-else class="if">
         <h2>Please login first!</h2>

@@ -7,7 +7,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Licorice&display=swap" rel="stylesheet">
     </head>
       <div id="nav">
-        <img src="assets/navbarlogo.jfif" alt="navBarLogo">
+        <h1>DrumCloud</h1>
         <div></div>
         <div></div>
         <div>
@@ -71,8 +71,8 @@ html {
 }
 
 #nav h1 {
-  font-family: 'Licorice', cursive;
-  font-size: 3em;
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 2em;
   color: #42b983;
 }
 
