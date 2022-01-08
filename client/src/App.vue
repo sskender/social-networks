@@ -7,13 +7,14 @@
       <link href="https://fonts.googleapis.com/css2?family=Licorice&display=swap" rel="stylesheet">
     </head>
       <div id="nav">
-        <h1>Drumre</h1>
+        <img src="assets/navbarlogo.jfif" alt="navBarLogo">
         <div></div>
         <div></div>
         <div>
           <router-link to="/">Home</router-link> 
           <router-link :to="{ name: 'Artists' }">Artists</router-link>
           <router-link :to="{ name: 'Profile' }">Profile</router-link>
+          <a href="http://localhost:3000/auth/facebook">Login</a>
         </div>
       </div>
   <router-view/>

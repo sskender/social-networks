@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div v-if="error == false" class="content">
       <div class="searchHeader">
             <div class="search-wrapper">
                 <label>Search title: </label>
@@ -47,9 +47,15 @@
       </div>
     
   </div>
+  <div v-else class="if">
+      {{ myFunction() }}
+      <h2>Please login first!</h2>
+  </div>
 </template>
 
 <script>
+import Paginate from 'vuejs-paginate'
+Vue.component('paginate', Paginate)
 import axios from 'axios';
 export default {
     data() {
@@ -57,6 +63,7 @@ export default {
             search: '',
             artists: [ ],
             favoriteArtists: [],
+            error: false
         }
     },
     mounted() {
@@ -69,7 +76,7 @@ export default {
         ).then(response => this.artists = response.data.data)
         }
         axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data)
-},
+        },
     computed: {
     filteredList() {
       return this.artists.filter(artist => {
@@ -78,6 +85,11 @@ export default {
     }
   },
   methods: {
+      myFunction() {
+          console.log("test")
+          this.artists.length < 1 ? this.error=true : this.error=false
+          setTimeout(myFunction, 1000);
+      },
       unlike(artistId) {
           axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
       },
@@ -90,6 +102,7 @@ export default {
             data, {withCredentials: true},
             ).then(response => console.log(response));
       },
+
 
       
       refreshApi() {

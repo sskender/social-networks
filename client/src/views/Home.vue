@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="home">
-      <h1>Welcome to Drumre!</h1>
+      <h1>Welcome to DrumCloud!</h1>
       <h3>The best music and artists at one place..</h3>
       <div></div>
       <img src="../assets/home.png" alt="home">

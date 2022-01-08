@@ -6,7 +6,9 @@
     <div v-if="uniqueArtists" class="allgenres">
         {{ printAllArtists() }}
         <div v-for="artist in uniqueArtists" :key="artist.idArtist" class="artists">
+            <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}">
                 <p>{{artist.strArtist}}</p>
+            </router-link> 
         </div>
     </div>
     <div v-else class="if">

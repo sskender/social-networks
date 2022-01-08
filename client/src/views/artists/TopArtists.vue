@@ -5,7 +5,9 @@
     </div>
     <div class="topArtists">
         <p v-for="(artist, index) in sortedJson" :key="index">
-            {{ artist.strArtist }}
+            <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}">
+                <p>{{artist.strArtist}}</p>
+            </router-link>
         </p>
     </div>
 </div>
