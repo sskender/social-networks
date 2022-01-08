@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -19,11 +20,13 @@ export default {
     }
   },
   mounted() {
-    fetch('http://localhost:3000/user/favorite')
-      .then(res => res.json())
-      .then(data => this.favorites = data).then(console.log(this.favorites))
-      .catch(err => console.log(err.message))
-  }
+    axios.get(
+        'http://localhost:3000/user/favorite',
+        {
+            withCredentials: true
+        }
+        ).then(response => this.favorites = response.data.data)
+    }
 }
 </script>
 

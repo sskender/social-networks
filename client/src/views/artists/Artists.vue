@@ -14,7 +14,8 @@
         <div v-for="artist in filteredList" :key="artist.idArtist" class="artists">
         
             <ul>
-                <img @click="like(artist.idArtist)" src="../../assets/Heart_Icon_Stroke.svg" alt="empty-hearth">  
+                <img v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist )" src="../../assets/Heart_Icon_Fill.svg" @click="unlike(artist.idArtist)" alt="fill-heart">  
+                <img v-else src="../../assets/Heart_Icon_Stroke.svg" @click="like(artist.idArtist)" alt="stroke-heart">
                         <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}" class="nd">
                             <div>
                                 <h2>{{ artist.strArtist }}</h2>
@@ -50,12 +51,12 @@
 
 <script>
 import axios from 'axios';
-
 export default {
     data() {
         return {
             search: '',
             artists: [ ],
+            favoriteArtists: [],
         }
     },
     mounted() {
@@ -67,6 +68,7 @@ export default {
         }
         ).then(response => this.artists = response.data.data)
         }
+        axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data)
 },
     computed: {
     filteredList() {
@@ -76,6 +78,9 @@ export default {
     }
   },
   methods: {
+      unlike(artistId) {
+          axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
+      },
       like(artistId) {
         const data = {
             idArtist : artistId
@@ -85,6 +90,8 @@ export default {
             data, {withCredentials: true},
             ).then(response => console.log(response));
       },
+
+      
       refreshApi() {
           axios.get(
         'http://localhost:3000/artist',
@@ -92,8 +99,8 @@ export default {
             withCredentials: true
         }
         ).then(response => this.artists = response.data.data)
-      }
-  }
+      },
+  },
 }
 </script>
 

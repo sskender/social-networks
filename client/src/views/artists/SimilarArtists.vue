@@ -2,14 +2,20 @@
   <div v-if="artists">
     <div class="similarContainer">
         <h1>Similar artists</h1>
-        <div class="similarArtists">
+        <div v-if="artists">
+            <div class="similarArtists">   
             <p v-for="artist in artists" :key="artist.idArtist">
-            {{artist.strArtist}}
-        </p>
+                <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}">
+                    {{artist.strArtist}}
+                </router-link>
+            </p>
+            </div>
         </div>
-        
+        <div v-else class="if">
+            <h2>Loading..</h2>
+        </div>
+        </div>
     </div>
-  </div>
   <div v-else class="if">
     <h2>Loading..</h2>
   </div>
@@ -37,13 +43,17 @@ export default {
 
 <style>
   .similarContainer {
-        margin: 12vh 15vh;
+        margin: 12vh auto;
+        width: 70%;
+        text-align: center;
+
     }
     .similarContainer h1 {
          font-family: 'Questrial', sans-serif;
+         text-align: left;
     }
     .similarArtists {
-        column-count: 6;
+        column-count: 3;
         margin: 5vh;
     }
     .similarArtists p {

@@ -2,12 +2,17 @@
   <div v-if="artist">
     <div class="containerr">
     <div class="firstSection">
-      <div>
+      <div class="insideFirstSection">
+        <router-link :to="{name: 'SimilarArtists', params: { id: artist.idArtist }}" class="similarArtists2">
+          Similar artists
+        </router-link>
         <h1>{{ artist.strArtist }}</h1>
-        <p v-if="artist.intFormedYear"><b>Formed: </b>  {{ artist.intFormedYear }}</p>
-        <p v-if="artist.strStyle"><b>Style: </b> {{ artist.strStyle }}</p>
-        <p v-if="artist.strGenre"><b>Genre: </b> {{ artist.strGenre }}</p>
-        <p v-if="artist.Mood"><b>Mood: </b> {{ artist.strMood }}</p>
+        <div>
+          <p v-if="artist.intFormedYear"><b>Active since: </b>  {{ artist.intFormedYear }}</p>
+          <p v-if="artist.strStyle"><b>Style: </b> {{ artist.strStyle }}</p>
+          <p v-if="artist.strGenre"><b>Genre: </b> {{ artist.strGenre }}</p>
+          <p v-if="artist.Mood"><b>Mood: </b> {{ artist.strMood }}</p>
+        </div>
       </div>
       <img v-if="artist.strArtistThumb" :src="artist.strArtistThumb" alt="artist-thumb">
     </div>
@@ -77,14 +82,36 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5vh;
+  }
+
+  .insideFirstSection {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 2.5vh;
+    align-items: flex-start;
+  }
+
+  .similarArtists2 {
+    padding: 15px 10px;
+    background: #1c744c;
+    color: white;
+    font-family: 'Questrial', sans-serif;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+
+  .similarArtists2:hover {
+    background: #39ac78;
+    color: white;
+    transition: 0.5s;
   }
 
   .firstSection h1, .secondSection h2 {
     color: #1c744c;
     font-family: 'Questrial', sans-serif;
     font-size: 3em;
-    margin-bottom: 7vh;
   }
 
   .secondSection p {
