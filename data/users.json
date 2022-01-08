@@ -1,0 +1,22 @@
+[
+    {
+        "_id" : ObjectId("61ce449ea6aa918e177835eb"),
+        "id" : 7274957445863288.0,
+        "email" : "neviock22@gmail.com",
+        "display_name" : "Domagoj Marinello",
+        "provider" : "facebook",
+        "createdAt" : ISODate("2021-12-30T23:45:34.437Z"),
+        "updatedAt" : ISODate("2021-12-30T23:45:34.437Z"),
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("61d446763b226f41e8c32665"),
+        "id" : 110456211510336.0,
+        "email" : "yojrxajxsw_1640896084@tfbnw.net",
+        "display_name" : "Will Algfcghgcafcc Moiduberg",
+        "provider" : "facebook",
+        "createdAt" : ISODate("2022-01-04T13:07:02.969Z"),
+        "updatedAt" : ISODate("2022-01-04T13:07:02.969Z"),
+        "__v" : 0
+    }
+]
