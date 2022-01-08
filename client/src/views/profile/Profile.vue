@@ -30,7 +30,7 @@
             
 
             <div class="header">
-                <h1>All local recommended artists</h1>
+                <h1>All recommended artists</h1>
             </div>
             <div v-if="recommendsLocal.length">
                 <div class="genres">
@@ -41,15 +41,6 @@
                         </router-link>
                     </div>
                     </div>
-                </div>
-            </div>
-            <div v-else class="if2"> <h2>You don't have local recommended artists!</h2></div>
-
-            <div class="header">
-                <h1>All facebook recommended artists</h1>
-            </div>
-            <div v-if="recommendsExternal.length">
-                <div class="genres">
                     <div v-for="recommendList in recommendsExternal" :key="recommendList">
                         <div v-for="favorite in recommendList.similar" :key="favorite.idArtist">
                         <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
@@ -59,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="if2"> <h2>You don't have facebook recommended artists!</h2></div>
+            <div v-else class="if2"> <h2>You don't have local recommended artists!</h2></div>
     </div>
     <div v-else class="if">
         <h2>Please login first!</h2>
