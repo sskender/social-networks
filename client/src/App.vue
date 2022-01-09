@@ -10,10 +10,14 @@
         <h1>DrumCloud</h1>
         <div></div>
         <div></div>
-        <div>
+        <div v-if="vLogged == true">
           <router-link to="/">Home</router-link> 
           <router-link :to="{ name: 'Artists' }">Artists</router-link>
           <router-link :to="{ name: 'Profile' }">Profile</router-link>
+          <a @click="logout" v-if="vLogged == true" href="">Logout</a>
+          <a v-else  href="http://localhost:3000/auth/facebook">Login</a>
+        </div>
+        <div v-else>
           <a @click="logout" v-if="vLogged == true" href="">Logout</a>
           <a v-else  href="http://localhost:3000/auth/facebook">Login</a>
         </div>
