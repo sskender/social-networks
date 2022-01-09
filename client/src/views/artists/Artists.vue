@@ -101,15 +101,16 @@ export default {
         const data = {
             idArtist : artistId
         };
-          axios.post(
-            'http://localhost:3000/user/favorite',
-            data, {withCredentials: true},
-            ).then(response => console.log(response));
             console.log(document.getElementById("myImg" + index).src)
             if(document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png") {
                 document.getElementById("myImg" + index).src = this.fill
+                axios.post(
+            'http://localhost:3000/user/favorite',
+            data, {withCredentials: true},
+            ).then(response => console.log(response));
             } else if(document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png") {
                 document.getElementById("myImg" + index).src = this.stroke
+                axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
             }
       },
 
