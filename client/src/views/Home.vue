@@ -1,16 +1,11 @@
 <template>
   <div>
-    <div class="home">
-      <h1>Welcome to DrumCloud!</h1>
-      <h3>The best music and artists at one place..</h3>
-      <div></div>
-      <img src="../assets/home.png" alt="home">
-  </div>
   <div v-if="vLogged == true">
-  <div class="header">
+    <div class="homeFavorites" v-if="favorites.length">
+  <div id="homeHeader" class="header">
                 <h1>Artists for you</h1>
             </div>
-            <div v-if="favorites.length">
+            
                 <div v-if="recommendsLocal.length">
                 <div class="profileFavorites">
                     <div v-for="recommendList in recommendsLocal" :key="recommendList">
@@ -33,10 +28,17 @@
             </div>
            
             <div id="noRecom" v-else class="if">
-                <h2>You don't have recommended artists!</h2>
+                <h2>Start selecting your favorite artists!</h2>
             </div>
             </div>
-            <div v-else class="if2"> <h2>Login to see recommended artists</h2></div>
+            <div v-else class="if2">
+              <div class="home">
+                <h1>Welcome to DrumCloud!</h1>
+                <h3>The best music and artists at one place..</h3>
+                <div></div>
+                <img src="../assets/home.png" alt="home">
+            </div>
+            </div>
             <div></div>
   </div>
 </template>
@@ -94,6 +96,18 @@ export default {
 </script>
 
 <style>
+  .homeFavorites p {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+  }
+  #homeHeader {
+    margin-top: 15vh;
+    background: white;
+  }
+  #homeHeader h1 {
+    color: #1c744c;
+    font-family: 'Questrial', sans-serif;
+  }
   #noRecom {
     margin-top: 0vh;
     margin-bottom: 10vh;

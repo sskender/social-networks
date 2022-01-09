@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="if2"> <h2>You don't have favorite artists!</h2></div>
+            <div v-else class="if2"> <h2>Start selecting your favorite artists!</h2></div>
 
             <div class="header">
                 <h1>All Liked artists</h1>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="if2"> <h2>You don't have liked artists!</h2></div>
+            <div v-else class="if2"> <h2>Start liking your artists!</h2></div>
             
 
             <div class="header">
@@ -53,7 +53,7 @@
             </div>
             <div v-else class="if2"> <h2>Loading..</h2></div>
             </div>
-            <div v-else class="if2"> <h2>You don't have recommended artists!</h2></div>
+            <div v-else class="if2"> <h2>Start selecting your favorite artists!</h2></div>
             
     </div>
     <div v-else class="if">
