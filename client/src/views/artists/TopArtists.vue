@@ -47,7 +47,9 @@ export default {
          font-family: 'Questrial', sans-serif;
     }
     .topArtists {
-        column-count: 6;
+        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         margin: 5vh;
     }
     .topArtists p {

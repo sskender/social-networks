@@ -4,7 +4,7 @@
                 <h1>All Favorite artists</h1>
             </div>
             <div v-if="favorites.length">
-                <div class="genres">
+                <div class="profileFavorites">
                     <div v-for="favorite in favorites" :key="favorite.idArtist">
                         <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
                             <p>{{ favorite.strArtist }}</p>
@@ -18,7 +18,7 @@
                 <h1>All Liked artists</h1>
             </div>
             <div v-if="liked.length">
-                <div class="genres">
+                <div class="profileFavorites">
                     <div v-for="artist in liked" :key="artist.idArtist">
                         <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}">
                             <p>{{ artist.strArtist }}</p>
@@ -32,8 +32,9 @@
             <div class="header">
                 <h1>All recommended artists</h1>
             </div>
-            <div v-if="recommendsLocal.length">
-                <div class="genres">
+            <div v-if="favorites.length">
+                <div v-if="recommendsLocal.length">
+                <div class="profileFavorites">
                     <div v-for="recommendList in recommendsLocal" :key="recommendList">
                         <div v-for="favorite in recommendList.similar" :key="favorite.idArtist">
                         <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
@@ -50,7 +51,10 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="if2"> <h2>You don't have local recommended artists!</h2></div>
+            <div v-else class="if2"> <h2>Loading..</h2></div>
+            </div>
+            <div v-else class="if2"> <h2>You don't have recommended artists!</h2></div>
+            
     </div>
     <div v-else class="if">
         <h2>Please login first!</h2>
@@ -100,8 +104,15 @@ export default {
 </script>
 
 <style>
-    .genres {
+    .profileFavorites {
+        columns: 6;
+        margin: 5vh;
         text-align: center;
+
+    }
+
+    .profileFavorites p {
+        padding: 2vh;
     }
     .profileContainer {
         margin-top: 20vh;

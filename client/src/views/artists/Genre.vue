@@ -60,12 +60,15 @@ export default {
          font-family: 'Questrial', sans-serif;
     }
     .allgenres {
-        column-count: 6;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-auto-rows: 70px;
+        gap: 0;
         margin: 5vh;
     }
     .allgenres p {
         padding: 10px;
-         font-family: 'Quicksand', sans-serif;
-         font-weight: 800;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 800;
     }
 </style>
