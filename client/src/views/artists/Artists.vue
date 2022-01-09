@@ -1,5 +1,5 @@
 <template>
-  <div v-if="error == false" class="content">
+  <div v-if="vLogged == true" class="content">
       <div class="searchHeader">
             <div class="search-wrapper">
                 <label>Search title: </label>
@@ -9,8 +9,8 @@
                 <!--<p @click="refreshApi">Refresh items</p>-->
             </div>
       </div>
-    
-    <div v-if="filteredList.length">
+    <div v-if="!(search != '' && !filteredList.length)">
+        <div v-if="filteredList.length">
         <div v-for="(artist, index) in filteredList" :key="artist.idArtist" class="artists">
         
             <ul>
@@ -39,6 +39,10 @@
     <div v-else class="if">
         <h2>Loading..</h2>
     </div>
+    </div>
+    <div v-else class="if">
+        <h2>No results</h2>
+    </div>
     
   
   <div class="floating">
@@ -48,14 +52,11 @@
     
   </div>
   <div v-else class="if">
-      {{ myFunction() }}
       <h2>Please login first!</h2>
   </div>
 </template>
 
 <script>
-import Paginate from 'vuejs-paginate'
-Vue.component('paginate', Paginate)
 import axios from 'axios';
 export default {
     data() {
@@ -64,8 +65,10 @@ export default {
             artists: [ ],
             favoriteArtists: [],
             error: false,
-            fill: "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png",
-            stroke: "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png"
+            fill: "Heart_Icon_Fill.svg",
+            stroke: "Heart_Icon_Stroke.svg",
+            logged: 1,
+            vLogged: false
         }
     },
     mounted() {
@@ -78,6 +81,18 @@ export default {
         ).then(response => this.artists = response.data.data)
         }
         axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data)
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
+        },
+        created() {
+            axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
         },
     computed: {
     filteredList() {
@@ -87,11 +102,6 @@ export default {
     }
   },
   methods: {
-      myFunction() {
-          console.log("test")
-          this.artists.length < 1 ? this.error=true : this.error=false
-          setTimeout(myFunction, 1000);
-      },
       /*unlike(artistId, index) {
           axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
           document.getElementById("myImg" + index).src = this.stroke
@@ -102,13 +112,13 @@ export default {
             idArtist : artistId
         };
             console.log(document.getElementById("myImg" + index).src)
-            if(document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png") {
+            if(document.getElementById("myImg" + index).src == "Heart_Icon_Stroke.svg" || document.getElementById("myImg" + index).src == "http://localhost:8080/Heart_Icon_Stroke.svg") {
                 document.getElementById("myImg" + index).src = this.fill
                 axios.post(
             'http://localhost:3000/user/favorite',
             data, {withCredentials: true},
             ).then(response => console.log(response));
-            } else if(document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png") {
+            } else if(document.getElementById("myImg" + index).src == "Heart_Icon_Fill.svg" || document.getElementById("myImg" + index).src == "http://localhost:8080/Heart_Icon_Fill.svg") {
                 document.getElementById("myImg" + index).src = this.stroke
                 axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
             }

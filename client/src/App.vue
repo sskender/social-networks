@@ -14,12 +14,47 @@
           <router-link to="/">Home</router-link> 
           <router-link :to="{ name: 'Artists' }">Artists</router-link>
           <router-link :to="{ name: 'Profile' }">Profile</router-link>
-          <a href="http://localhost:3000/auth/facebook">Login</a>
+          <a @click="logout" v-if="vLogged == true" href="">Logout</a>
+          <a v-else  href="http://localhost:3000/auth/facebook">Login</a>
         </div>
       </div>
   <router-view/>
   </div>
 </template>
+
+<script>
+import axios from 'axios';
+export default {
+  
+  data() {
+    return {
+      logged: 1,
+      vLogged: false
+    }
+  },
+  methods: {
+  },
+  mounted() {
+    setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
+  },
+  created() {
+    axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+  },
+  methods: {
+    logout() {
+      axios.get('http://localhost:3000/auth/logout', {withCredentials: true}).then(response => window.location.replace = 'http://localhost:8080/')
+    }
+  }
+}
+</script>
 
 
 <style>

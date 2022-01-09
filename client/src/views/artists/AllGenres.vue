@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div v-if="vLogged == true" class="container">
     <div class="header">
         <h1>All Genres</h1>
     </div>
@@ -11,6 +11,9 @@
         </div>
     </div>
 </div>
+<div v-else class="if">
+    <h2>Please login first!</h2>
+</div>
 </template>
 
 <script>
@@ -18,7 +21,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            genres: []
+            genres: [],
+            logged: 1,
+            vLogged: false
         }
     },
     mounted() {
@@ -27,8 +32,20 @@ export default {
         {
             withCredentials: true
         }
-        ).then(response => this.genres = response.data.data)
+        ).then(response => this.genres = response.data.data),
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
     },
+    created() {
+        axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+    }
 }
 </script>
 

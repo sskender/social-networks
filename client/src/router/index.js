@@ -5,8 +5,6 @@ import Profile from '../views/profile/Profile.vue'
 import ArtistDetails from '../views/artists/ArtistDetails.vue'
 import TopArtists from '../views/artists/TopArtists.vue'
 import AllGenres from '../views/artists/AllGenres.vue'
-import Liked from '../views/profile/Liked.vue'
-import UserFavorite from '../views/profile/UserFavorite.vue'
 import SimilarArtists from '../views/artists/SimilarArtists.vue'
 import Genre from '../views/artists/Genre.vue'
 
@@ -42,16 +40,6 @@ const routes = [
     path: '/artist/genre',
     name: 'AllGenres',
     component: AllGenres
-  },
-  {
-    path: '/user/favorite',
-    name: 'UserFavorite',
-    component: UserFavorite
-  },
-  {
-    path: '/user/liked',
-    name: 'Liked',
-    component: Liked
   },
   {
     path: '/profile',

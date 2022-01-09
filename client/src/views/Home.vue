@@ -12,7 +12,6 @@
 <script>
 // @ is an alias to /src
 
-
 export default {
   name: 'Home',
   components: {
@@ -28,6 +27,7 @@ export default {
     //  .then(res => res.json())
     //  .then(data => this.artists = data)
      // .catch(err => console.log(err.message))
+     console.log(this.logged)
   }
 }
 </script>

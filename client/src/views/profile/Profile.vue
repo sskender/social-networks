@@ -1,10 +1,10 @@
 <template>
-    <div v-if="error == false" class="profileContainer">
+    <div v-if="vLogged == true" class="profileContainer">
             <div class="header">
                 <h1>All Favorite artists</h1>
             </div>
             <div v-if="favorites.length">
-                <div class="profileFavorites">
+                <div class="genres">
                     <div v-for="favorite in favorites" :key="favorite.idArtist">
                         <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
                             <p>{{ favorite.strArtist }}</p>
@@ -70,7 +70,9 @@ export default {
       liked: [],
       recommendsLocal: [],
       recommendsExternal: [],
-      error: false
+      error: false,
+      logged: 1,
+      vLogged: false
     }
   },
   mounted() {
@@ -98,7 +100,19 @@ export default {
             withCredentials: true
         }
         ).then(response => this.recommendsExternal = response.data.data)
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
     },
+    created() {
+        axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+    }
 }
 
 </script>

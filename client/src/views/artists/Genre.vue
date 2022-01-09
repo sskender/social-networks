@@ -1,10 +1,10 @@
 <template>
- <div class="genreContainer">
+ <div v-if="vLogged == true" class="genreContainer">
     <div class="header">
-            <h1 @click="printGenre">{{strGenre}} - All artists</h1>
+            <h1>{{strGenre}} - All artists</h1>
     </div>
-    <div v-if="uniqueArtists" class="allgenres">
-        {{ printAllArtists() }}
+    {{ printAllArtists() }}
+    <div v-if="uniqueArtists.length" class="allgenres">
         <div v-for="artist in uniqueArtists" :key="artist.idArtist" class="artists">
             <router-link :to="{name: 'ArtistDetails', params: { id: artist.idArtist }}">
                 <p>{{artist.strArtist}}</p>
@@ -14,6 +14,9 @@
     <div v-else class="if">
         <h2>Loading..</h2>
     </div>
+</div>
+<div v-else class="if">
+    <h2>Please login first!</h2>
 </div>
 
 </template>
@@ -27,6 +30,8 @@ export default {
         return {
             artists: [],
             uniqueArtists: [],
+            logged: 1,
+            vLogged: false
         }
     },
     mounted() {
@@ -36,19 +41,33 @@ export default {
         {
             withCredentials: true
         }
-        ).then(response => this.artists = response.data.data)
+        ).then(response => this.artists = response.data.data),
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
         }
 },
     methods: {
             printAllArtists() {
-                this.artists.forEach(artist => {
+                if(this.vLogged==true) {
+                    this.artists.forEach(artist => {
                     if(artist.strGenre == this.strGenre) {
                         this.uniqueArtists.push(artist)
                     }
                 });
                 this.uniqueArtists = [...new Set(this.uniqueArtists)]
+                }
             },
-        }
+        },
+        created() {
+                axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+            }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div v-if="vLogged == true" class="container">
     <div class="header">
         <h1>Top Artists</h1>
     </div>
@@ -11,20 +11,40 @@
         </p>
     </div>
 </div>
+<div v-else class="if">
+    <h2>Please login first!</h2>
+</div>
 </template>
 
 <script>
+import axios from 'axios';
 import json from '../../components/topArtistJson.json'
 export default {
     data() {
         return {
-            topArtists: json
+            topArtists: json,
+            logged: 1,
+            vLogged: false
         }
     },
     computed: {
         sortedJson: function() {
             return this.topArtists.sort((t1,t2) => t1.strArtist < t2.strArtist ? -1 : 1);
         },
+    },
+    mounted() {
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
+    },
+    created() {
+        axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
     }
 }
 </script>

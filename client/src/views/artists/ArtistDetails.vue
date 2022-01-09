@@ -1,4 +1,5 @@
 <template>
+<div v-if="vLogged == true">
   <div v-if="artist">
     <div class="containerr">
     <div class="firstSection">
@@ -7,8 +8,8 @@
           <router-link :to="{name: 'SimilarArtists', params: { id: artist.idArtist }}" class="similarArtists2">
             Similar artists
           </router-link>
-          <img style="height:4vh" :id="'myImg'+ index" v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist)" @click="toggleLike(artist.idArtist, index)" :src="fill" alt="fill-heart">  
-          <img style="height:4vh" :id="'myImg'+ index" v-else :src="stroke" @click="toggleLike(artist.idArtist, index)" alt="stroke-heart">
+          <img style="height:4vh; cursor:pointer" :id="'myImg'+ index" v-if="favoriteArtists.some( item => item['idArtist'] === artist.idArtist)" @click="toggleLike(artist.idArtist, index)" :src="fill" alt="fill-heart">  
+          <img style="height:4vh; cursor:pointer" :id="'myImg'+ index" v-else :src="stroke" @click="toggleLike(artist.idArtist, index)" alt="stroke-heart">
         </div>
         <h1>{{ artist.strArtist }}</h1>
         <div>
@@ -30,9 +31,9 @@
   </div>
   <div class="fourthSection">
     <div v-if="artist.strFacebook.length>0 || artist.strTwitter.length>0 || artist.strWebsite.length>0">
-        <a @click="gotoPage(artist.strFacebook)"> Facebook page </a> |
-        <a @click="gotoPage(artist.strTwitter)"> Twitter page </a>  | 
-        <a @click="gotoPage(artist.strWebsite)"> Website </a>
+        <span v-if="artist.strFacebook"><a @click="gotoPage(artist.strFacebook)"> Facebook page </a> |</span>
+        <span v-if="artist.strTwitter"><a @click="gotoPage(artist.strTwitter)"> Twitter page </a> | </span>
+        <span v-if="artist.strTwitter"><a @click="gotoPage(artist.strWebsite)">Website </a></span>
     </div>
     <div v-else>
         <p>There is no social media sites!</p>
@@ -41,6 +42,10 @@
   </div>
   <div v-else class="if">
     <h2>Loading..</h2>
+  </div>
+</div>
+  <div v-else class="if">
+      <h2>Please login first!</h2>
   </div>
 </template>
 
@@ -52,8 +57,10 @@ export default {
     return {
       artist: null,
       favoriteArtists: [],
-      fill: "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png",
-      stroke: "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png"
+      fill: "/Heart_Icon_Fill.svg",
+      stroke: "/Heart_Icon_Stroke.svg",
+      logged: 1,
+      vLogged: false
       }
   },
   mounted() {
@@ -63,29 +70,42 @@ export default {
             withCredentials: true
         }
         ).then(response => this.artist = response.data.data)
-        axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data)
+        axios.get('http://localhost:3000/user/favorite', { withCredentials: true}).then(response => this.favoriteArtists = response.data.data),
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
   },
   methods: {
     gotoPage(link) {
-      window.open("http://" + link);
+      window.open("http://" + link, '_blank');
     },
     toggleLike(artistId, index) {
         const data = {
             idArtist : artistId
         };
             console.log(document.getElementById("myImg" + index).src)
-            if(document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/HGbwBMb/Heart-Icon-Stroke.png") {
+             if(document.getElementById("myImg" + index).src == "Heart_Icon_Stroke.svg" || document.getElementById("myImg" + index).src == "http://localhost:8080/Heart_Icon_Stroke.svg") {
                 document.getElementById("myImg" + index).src = this.fill
                 axios.post(
             'http://localhost:3000/user/favorite',
             data, {withCredentials: true},
             ).then(response => console.log(response));
-            } else if(document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png" || document.getElementById("myImg" + index).src == "https://i.ibb.co/WDTyxLR/Heart-Icon-Fill.png") {
+            } else if(document.getElementById("myImg" + index).src == "Heart_Icon_Fill.svg" || document.getElementById("myImg" + index).src == "http://localhost:8080/Heart_Icon_Fill.svg") {
                 document.getElementById("myImg" + index).src = this.stroke
                 axios.delete('http://localhost:3000/user/favorite', { data: { idArtist: artistId }, withCredentials: true }).then(response => console.log(response));
             }
       },
-  }
+
+  },
+  created() {
+        axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+    }
 }
 </script>
 
@@ -175,6 +195,7 @@ export default {
     color: white;
     transition: 0.5s;
     padding: 0 1vh;
+    cursor: pointer;
   }
   
   .fourthSection a:hover {
