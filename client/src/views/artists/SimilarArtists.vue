@@ -1,8 +1,11 @@
 <template>
 <div  v-if="vLogged == true">
   <div v-if="artists">
-    <div class="similarContainer">
+    <div id="similarHeader" class="header">
         <h1>Similar artists</h1>
+        <img style="height: 10vh" src="/pravi.png" alt="headerLogo">
+    </div>
+    <div class="similarContainer">
         <div v-if="artists">
             <div class="similarArtists">   
             <p v-for="artist in artists" :key="artist.idArtist">
@@ -61,6 +64,9 @@ export default {
 </script>
 
 <style>
+  #similarHeader {
+    margin-top: 15vh;
+  }
   .similarContainer {
         margin: 12vh auto;
         width: 70%;

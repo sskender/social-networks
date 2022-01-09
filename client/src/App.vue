@@ -14,12 +14,22 @@
           <router-link to="/">Home</router-link> 
           <router-link :to="{ name: 'Artists' }">Artists</router-link>
           <router-link :to="{ name: 'Profile' }">Profile</router-link>
-          <a @click="logout" v-if="vLogged == true" href="">Logout</a>
-          <a v-else  href="http://localhost:3000/auth/facebook">Login</a>
+          <span v-if="vLogged == true">
+            <a @click="logout" href="">Logout</a>
+          </span>
+          <span v-else>
+            <a href="http://localhost:3000/auth/facebook">Facebook login</a>
+            <a href="http://localhost:3000/auth/twitter/">Twitter login</a>
+          </span>
         </div>
         <div v-else>
-          <a @click="logout" v-if="vLogged == true" href="">Logout</a>
-          <a v-else  href="http://localhost:3000/auth/facebook">Login</a>
+          <span v-if="vLogged == true">
+            <a @click="logout" href="">Logout</a>
+          </span>
+          <span v-else>
+            <a href="http://localhost:3000/auth/facebook">Facebook login</a>
+            <a @click="twitterLogin" href="">Twitter login</a>
+          </span>
         </div>
       </div>
   <router-view/>
@@ -55,6 +65,9 @@ export default {
   methods: {
     logout() {
       axios.get('http://localhost:3000/auth/logout', {withCredentials: true}).then(response => window.location.replace = 'http://localhost:8080/')
+    },
+    twitterLogin() {
+      axios.get('http://localhost:3000/auth/twitter', {withCredentials: true}).then(response => window.location.replace = 'http://localhost:8080/')
     }
   }
 }

@@ -1,7 +1,10 @@
 <template>
  <div v-if="vLogged == true" class="genreContainer">
     <div class="header">
+        <div id="genreDetailsHeader" class="header">
             <h1>{{strGenre}} - All artists</h1>
+            <img style="height: 10vh" src="/pravi.png" alt="headerLogo">
+        </div>
     </div>
     {{ printAllArtists() }}
     <div v-if="uniqueArtists.length" class="allgenres">
@@ -72,6 +75,10 @@ export default {
 </script>
 
 <style>
+    #genreDetailsHeader {
+        justify-content: space-between;
+        width: 100vw;
+    }
     .genreContainer {
         margin: 12vh 0;
     }
