@@ -102,10 +102,8 @@ export default {
   }
   #homeHeader {
     margin-top: 15vh;
-    background: white;
   }
   #homeHeader h1 {
-    color: #1c744c;
     font-family: 'Questrial', sans-serif;
   }
   #noRecom {
