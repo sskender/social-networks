@@ -1,10 +1,6 @@
-const dotenv = require('dotenv')
-const path = require('path')
 const axios = require('axios')
 
 const Artist = require('../models/artist')
-
-dotenv.config({ path: path.join(__dirname, './../.env') })
 
 /**
  * lastfm.com
