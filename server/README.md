@@ -61,5 +61,8 @@ BODY: `{ "idArtist" : "150642" }`
 - FACEBOOK LOGIN REDIRECT:
 `http://localhost:3000/auth/facebook`
 
+- TWITTER LOGIN REDIRECT:
+`http://localhost:3000/auth/twitter`
+
 - LOGOUT REDIRECT:
 `http://localhost:3000/auth/logout`
