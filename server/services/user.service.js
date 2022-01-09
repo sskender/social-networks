@@ -35,11 +35,17 @@ const getLikedArtists = async (user) => {
 const getUserFromPassportProfile = async (profile) => {
   const currentUser = await User.findOne({ id: profile.id })
   if (!currentUser) {
+    let email
+    if (profile.emails != null) {
+      email = profile.emails[0].value
+    } else {
+      email = ''
+    }
     return new User({
       id: profile.id,
       provider: profile.provider,
       display_name: profile.displayName,
-      email: profile.emails[0].value
+      email: email
     }).save()
   }
   return currentUser
