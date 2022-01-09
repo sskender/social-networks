@@ -2,6 +2,7 @@
 <div v-if="vLogged == true" class="container">
     <div class="header">
         <h1>All Genres</h1>
+        <img style="height: 10vh" src="/pravi.png" alt="headerLogo">
     </div>
     <div class="genres">
         <div v-for="genre in genres" :key="genre">
@@ -51,9 +52,8 @@ export default {
 
 <style>
     .header {
-        background: #1c744cee;
+        background: #1c744c;
         height: 10vh;
-        justify-content: center;
         padding: 0 5vh;
     }
     .header h1 {

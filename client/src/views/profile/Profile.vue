@@ -2,6 +2,7 @@
     <div v-if="vLogged == true" class="profileContainer">
             <div class="header">
                 <h1>All Favorite artists</h1>
+                <img style="height: 10vh" src="pravi.png" alt="headerLogo">
             </div>
             <div v-if="favorites.length">
                 <div class="genres">
@@ -16,6 +17,7 @@
 
             <div class="header">
                 <h1>All Liked artists</h1>
+                <img style="height: 10vh" src="pravi.png" alt="headerLogo">
             </div>
             <div v-if="liked.length">
                 <div class="profileFavorites">
@@ -31,6 +33,7 @@
 
             <div class="header">
                 <h1>All recommended artists</h1>
+                <img style="height: 10vh" src="pravi.png" alt="headerLogo">
             </div>
             <div v-if="favorites.length">
                 <div v-if="recommendsLocal.length">

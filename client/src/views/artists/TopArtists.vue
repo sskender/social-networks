@@ -2,6 +2,7 @@
 <div v-if="vLogged == true" class="container">
     <div class="header">
         <h1>Top Artists</h1>
+        <img style="height: 10vh" src="/pravi.png" alt="headerLogo">
     </div>
     <div class="topArtists">
         <p v-for="(artist, index) in sortedJson" :key="index">
@@ -51,9 +52,8 @@ export default {
 
 <style>
     .header {
-        background: #1c744cee;
+        background: #1c744c;
         height: 10vh;
-        justify-content: center;
         padding: 0 5vh;
     }
     .header h1 {

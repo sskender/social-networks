@@ -4,6 +4,7 @@
     <div class="homeFavorites" v-if="favorites.length">
   <div id="homeHeader" class="header">
                 <h1>Artists for you</h1>
+                <img style="height: 10vh" src="pravi.png" alt="headerLogo">
             </div>
             
                 <div v-if="recommendsLocal.length">
@@ -96,6 +97,11 @@ export default {
 </script>
 
 <style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    
+  }
   .homeFavorites p {
     font-family: 'Quicksand', sans-serif;
     font-weight: 800;
