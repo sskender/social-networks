@@ -28,7 +28,7 @@
           </span>
           <span v-else>
             <a href="http://localhost:3000/auth/facebook">Facebook login</a>
-            <a @click="twitterLogin" href="">Twitter login</a>
+            <a href="http://localhost:3000/auth/twitter/">Twitter login</a>
           </span>
         </div>
       </div>
@@ -66,9 +66,6 @@ export default {
     logout() {
       axios.get('http://localhost:3000/auth/logout', {withCredentials: true}).then(response => window.location.replace = 'http://localhost:8080/')
     },
-    twitterLogin() {
-      axios.get('http://localhost:3000/auth/twitter', {withCredentials: true}).then(response => window.location.replace = 'http://localhost:8080/')
-    }
   }
 }
 </script>
