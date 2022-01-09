@@ -6,12 +6,44 @@
       <div></div>
       <img src="../assets/home.png" alt="home">
   </div>
+  <div v-if="vLogged == true">
+  <div class="header">
+                <h1>Artists for you</h1>
+            </div>
+            <div v-if="favorites.length">
+                <div v-if="recommendsLocal.length">
+                <div class="profileFavorites">
+                    <div v-for="recommendList in recommendsLocal" :key="recommendList">
+                        <div v-for="favorite in recommendList.similar" :key="favorite.idArtist">
+                        <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
+                            <p>{{ favorite.strArtist }}</p>
+                        </router-link>
+                    </div>
+                    </div>
+                    <div v-for="recommendList in recommendsExternal" :key="recommendList">
+                        <div v-for="favorite in recommendList.similar" :key="favorite.idArtist">
+                        <router-link :to="{name: 'ArtistDetails', params: { id: favorite.idArtist }}">
+                            <p>{{ favorite.strArtist }}</p>
+                        </router-link>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="if2"> <h2>Loading..</h2></div>
+            </div>
+           
+            <div id="noRecom" v-else class="if">
+                <h2>You don't have recommended artists!</h2>
+            </div>
+            </div>
+            <div v-else class="if2"> <h2>Login to see recommended artists</h2></div>
+            <div></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import axios from 'axios';
 export default {
   name: 'Home',
   components: {
@@ -19,20 +51,53 @@ export default {
   },
   data() {
     return {
-
+      favorites: [],
+      recommendsLocal: [],
+      recommendsExternal: [],
+      logged: 1,
+      vLogged: false
     }
   },
   mounted() {
-    //fetch('http://localhost:3000/artist')
-    //  .then(res => res.json())
-    //  .then(data => this.artists = data)
-     // .catch(err => console.log(err.message))
-     console.log(this.logged)
-  }
+     axios.get(
+        'http://localhost:3000/user/favorite',
+        {
+            withCredentials: true
+        }
+        ).then(response => this.favorites = response.data.data)
+        axios.get(
+        'http://localhost:3000/user/recommend/local',
+        {
+            withCredentials: true
+        }
+        ).then(response => this.recommendsLocal = response.data.data)
+        axios.get(
+        'http://localhost:3000/user/recommend/external',
+        {
+            withCredentials: true
+        }
+        ).then(response => this.recommendsExternal = response.data.data)
+        setTimeout(() => {
+      if(this.logged == 401) {
+        this.vLogged = false 
+      } else {
+        this.vLogged = true
+      }
+      
+      }, 100
+      );
+  },
+  created() {
+        axios.get('http://localhost:3000/profile', {withCredentials: true}).then(response => this.logged = response.data.status)
+    }
 }
 </script>
 
 <style>
+  #noRecom {
+    margin-top: 0vh;
+    margin-bottom: 10vh;
+  }
   .home {
     display: flex;
     flex-direction: column;
